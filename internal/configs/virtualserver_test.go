@@ -741,6 +741,7 @@ func TestGenerateUpstream(t *testing.T) {
 	cfgParams := ConfigParams{
 		LBMethod:    "random",
 		MaxFails:    1,
+		MaxConns:    0,
 		FailTimeout: "10s",
 		Keepalive:   21,
 	}
@@ -751,6 +752,7 @@ func TestGenerateUpstream(t *testing.T) {
 			{
 				Address:     "192.168.10.10:8080",
 				MaxFails:    1,
+				MaxConns:    0,
 				FailTimeout: "10s",
 			},
 		},

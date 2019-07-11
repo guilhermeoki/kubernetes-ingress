@@ -10,7 +10,6 @@ import (
 )
 
 func TestValidateVirtualServer(t *testing.T) {
-	var keepalive = 32
 	virtualServer := v1alpha1.VirtualServer{
 		ObjectMeta: meta_v1.ObjectMeta{
 			Name:      "cafe",
@@ -27,7 +26,9 @@ func TestValidateVirtualServer(t *testing.T) {
 					Service:   "service-1",
 					LBMethod:  "random",
 					Port:      80,
-					Keepalive: &keepalive,
+					MaxFails:  createPointerFromInt(8),
+					MaxConns:  createPointerFromInt(16),
+					Keepalive: createPointerFromInt(32),
 				},
 				{
 					Name:    "second",
@@ -133,9 +134,10 @@ func TestValidateUpstreams(t *testing.T) {
 		{
 			upstreams: []v1alpha1.Upstream{
 				{
-					Name:    "upstream1",
-					Service: "test-1",
-					Port:    80,
+					Name:     "upstream1",
+					Service:  "test-1",
+					Port:     80,
+					MaxConns: createPointerFromInt(16),
 				},
 				{
 					Name:    "upstream2",
@@ -222,6 +224,20 @@ func TestValidateUpstreamsFails(t *testing.T) {
 				"upstream1": sets.Empty{},
 			},
 			msg: "duplicated upstreams",
+		},
+		{
+			upstreams: []v1alpha1.Upstream{
+				{
+					Name:     "upstream1",
+					Service:  "test-1",
+					Port:     80,
+					MaxConns: createPointerFromInt(-1),
+				},
+			},
+			expectedUpstreamNames: map[string]sets.Empty{
+				"upstream1": sets.Empty{},
+			},
+			msg: "negative value for MaxConns",
 		},
 	}
 
