@@ -146,8 +146,8 @@ func TestValidateUpstreams(t *testing.T) {
 				},
 			},
 			expectedUpstreamNames: map[string]sets.Empty{
-				"upstream1": sets.Empty{},
-				"upstream2": sets.Empty{},
+				"upstream1": {},
+				"upstream2": {},
 			},
 			msg: "2 valid upstreams",
 		},
@@ -190,7 +190,7 @@ func TestValidateUpstreamsFails(t *testing.T) {
 				},
 			},
 			expectedUpstreamNames: map[string]sets.Empty{
-				"upstream1": sets.Empty{},
+				"upstream1": {},
 			},
 			msg: "invalid service",
 		},
@@ -203,7 +203,7 @@ func TestValidateUpstreamsFails(t *testing.T) {
 				},
 			},
 			expectedUpstreamNames: map[string]sets.Empty{
-				"upstream1": sets.Empty{},
+				"upstream1": {},
 			},
 			msg: "invalid port",
 		},
@@ -221,7 +221,7 @@ func TestValidateUpstreamsFails(t *testing.T) {
 				},
 			},
 			expectedUpstreamNames: map[string]sets.Empty{
-				"upstream1": sets.Empty{},
+				"upstream1": {},
 			},
 			msg: "duplicated upstreams",
 		},
@@ -235,7 +235,7 @@ func TestValidateUpstreamsFails(t *testing.T) {
 				},
 			},
 			expectedUpstreamNames: map[string]sets.Empty{
-				"upstream1": sets.Empty{},
+				"upstream1": {},
 			},
 			msg: "negative value for MaxConns",
 		},
@@ -299,7 +299,7 @@ func TestValidateVirtualServerRoutes(t *testing.T) {
 				},
 			},
 			upstreamNames: map[string]sets.Empty{
-				"test": sets.Empty{},
+				"test": {},
 			},
 			msg: "valid route",
 		},
@@ -331,8 +331,8 @@ func TestValidateVirtualServerRoutesFails(t *testing.T) {
 				},
 			},
 			upstreamNames: map[string]sets.Empty{
-				"test-1": sets.Empty{},
-				"test-2": sets.Empty{},
+				"test-1": {},
+				"test-2": {},
 			},
 			msg: "duplicated paths",
 		},
@@ -371,7 +371,7 @@ func TestValidateRoute(t *testing.T) {
 				Upstream: "test",
 			},
 			upstreamNames: map[string]sets.Empty{
-				"test": sets.Empty{},
+				"test": {},
 			},
 			isRouteFieldForbidden: false,
 			msg:                   "valid route with upstream",
@@ -391,8 +391,8 @@ func TestValidateRoute(t *testing.T) {
 				},
 			},
 			upstreamNames: map[string]sets.Empty{
-				"test-1": sets.Empty{},
-				"test-2": sets.Empty{},
+				"test-1": {},
+				"test-2": {},
 			},
 			isRouteFieldForbidden: false,
 			msg:                   "valid upstream with splits",
@@ -418,8 +418,8 @@ func TestValidateRoute(t *testing.T) {
 				},
 			},
 			upstreamNames: map[string]sets.Empty{
-				"test-1": sets.Empty{},
-				"test-2": sets.Empty{},
+				"test-1": {},
+				"test-2": {},
 			},
 			isRouteFieldForbidden: false,
 			msg:                   "valid upstream with rules",
@@ -457,7 +457,7 @@ func TestValidateRouteFails(t *testing.T) {
 				Upstream: "test",
 			},
 			upstreamNames: map[string]sets.Empty{
-				"test": sets.Empty{},
+				"test": {},
 			},
 			isRouteFieldForbidden: false,
 			msg:                   "empty path",
@@ -496,9 +496,9 @@ func TestValidateRouteFails(t *testing.T) {
 				},
 			},
 			upstreamNames: map[string]sets.Empty{
-				"test":   sets.Empty{},
-				"test-1": sets.Empty{},
-				"test-2": sets.Empty{},
+				"test":   {},
+				"test-1": {},
+				"test-2": {},
 			},
 			isRouteFieldForbidden: false,
 			msg:                   "both upstream and splits exist",
@@ -525,9 +525,9 @@ func TestValidateRouteFails(t *testing.T) {
 				},
 			},
 			upstreamNames: map[string]sets.Empty{
-				"test":   sets.Empty{},
-				"test-1": sets.Empty{},
-				"test-2": sets.Empty{},
+				"test":   {},
+				"test-1": {},
+				"test-2": {},
 			},
 			isRouteFieldForbidden: false,
 			msg:                   "both upstream and rules exist",
@@ -563,8 +563,8 @@ func TestValidateRouteFails(t *testing.T) {
 				},
 			},
 			upstreamNames: map[string]sets.Empty{
-				"test-1": sets.Empty{},
-				"test-2": sets.Empty{},
+				"test-1": {},
+				"test-2": {},
 			},
 			isRouteFieldForbidden: false,
 			msg:                   "both splits and rules exist",
@@ -618,7 +618,7 @@ func TestValidateRouteField(t *testing.T) {
 func TestValdateReferencedUpstream(t *testing.T) {
 	upstream := "test"
 	upstreamNames := map[string]sets.Empty{
-		"test": sets.Empty{},
+		"test": {},
 	}
 
 	allErrs := validateReferencedUpstream(upstream, field.NewPath("upstream"), upstreamNames)
@@ -701,8 +701,8 @@ func TestValidateSplits(t *testing.T) {
 		},
 	}
 	upstreamNames := map[string]sets.Empty{
-		"test-1": sets.Empty{},
-		"test-2": sets.Empty{},
+		"test-1": {},
+		"test-2": {},
 	}
 
 	allErrs := validateSplits(splits, field.NewPath("splits"), upstreamNames)
@@ -725,7 +725,7 @@ func TestValidateSplitsFails(t *testing.T) {
 				},
 			},
 			upstreamNames: map[string]sets.Empty{
-				"test-1": sets.Empty{},
+				"test-1": {},
 			},
 			msg: "only one split",
 		},
@@ -741,8 +741,8 @@ func TestValidateSplitsFails(t *testing.T) {
 				},
 			},
 			upstreamNames: map[string]sets.Empty{
-				"test-1": sets.Empty{},
-				"test-2": sets.Empty{},
+				"test-1": {},
+				"test-2": {},
 			},
 			msg: "invalid weight",
 		},
@@ -758,8 +758,8 @@ func TestValidateSplitsFails(t *testing.T) {
 				},
 			},
 			upstreamNames: map[string]sets.Empty{
-				"test-1": sets.Empty{},
-				"test-2": sets.Empty{},
+				"test-1": {},
+				"test-2": {},
 			},
 			msg: "invalid total weight",
 		},
@@ -775,8 +775,8 @@ func TestValidateSplitsFails(t *testing.T) {
 				},
 			},
 			upstreamNames: map[string]sets.Empty{
-				"test-1": sets.Empty{},
-				"test-2": sets.Empty{},
+				"test-1": {},
+				"test-2": {},
 			},
 			msg: "invalid upstream",
 		},
@@ -792,8 +792,8 @@ func TestValidateSplitsFails(t *testing.T) {
 				},
 			},
 			upstreamNames: map[string]sets.Empty{
-				"test-1": sets.Empty{},
-				"test-2": sets.Empty{},
+				"test-1": {},
+				"test-2": {},
 			},
 			msg: "non-existing upstream",
 		},
@@ -826,8 +826,8 @@ func TestValidateRules(t *testing.T) {
 	}
 
 	upstreamNames := map[string]sets.Empty{
-		"test-1": sets.Empty{},
-		"test-2": sets.Empty{},
+		"test-1": {},
+		"test-2": {},
 	}
 
 	allErrs := validateRules(&rules, field.NewPath("rules"), upstreamNames)
@@ -856,8 +856,8 @@ func TestValidateRulesFails(t *testing.T) {
 				DefaultUpstream: "test-2",
 			},
 			upstreamNames: map[string]sets.Empty{
-				"test-1": sets.Empty{},
-				"test-2": sets.Empty{},
+				"test-1": {},
+				"test-2": {},
 			},
 			msg: "no conditions",
 		},
@@ -872,7 +872,7 @@ func TestValidateRulesFails(t *testing.T) {
 				DefaultUpstream: "test-2",
 			},
 			upstreamNames: map[string]sets.Empty{
-				"test-2": sets.Empty{},
+				"test-2": {},
 			},
 			msg: "no matches",
 		},
@@ -894,7 +894,7 @@ func TestValidateRulesFails(t *testing.T) {
 				DefaultUpstream: "",
 			},
 			upstreamNames: map[string]sets.Empty{
-				"test-1": sets.Empty{},
+				"test-1": {},
 			},
 			msg: "no default upstream",
 		},
@@ -917,8 +917,8 @@ func TestValidateRulesFails(t *testing.T) {
 				DefaultUpstream: "test",
 			},
 			upstreamNames: map[string]sets.Empty{
-				"test-1": sets.Empty{},
-				"test":   sets.Empty{},
+				"test-1": {},
+				"test":   {},
 			},
 			msg: "invalid values in a match",
 		},
@@ -1112,7 +1112,7 @@ func TestValidateMatch(t *testing.T) {
 	}
 	conditionsCount := 2
 	upstreamNames := map[string]sets.Empty{
-		"test": sets.Empty{},
+		"test": {},
 	}
 
 	allErrs := validateMatch(match, field.NewPath("match"), conditionsCount, upstreamNames)
@@ -1135,7 +1135,7 @@ func TestValidateMatchFails(t *testing.T) {
 			},
 			conditionsCount: 1,
 			upstreamNames: map[string]sets.Empty{
-				"test": sets.Empty{},
+				"test": {},
 			},
 			msg: "invalid number of values",
 		},
@@ -1148,7 +1148,7 @@ func TestValidateMatchFails(t *testing.T) {
 			},
 			conditionsCount: 1,
 			upstreamNames: map[string]sets.Empty{
-				"test": sets.Empty{},
+				"test": {},
 			},
 			msg: "invalid value",
 		},
@@ -1325,7 +1325,7 @@ func TestValidateVirtualServerRouteSubroutes(t *testing.T) {
 				},
 			},
 			upstreamNames: map[string]sets.Empty{
-				"test": sets.Empty{},
+				"test": {},
 			},
 			pathPrefix: "/",
 			msg:        "valid route",
@@ -1359,8 +1359,8 @@ func TestValidateVirtualServerRouteSubroutesFails(t *testing.T) {
 				},
 			},
 			upstreamNames: map[string]sets.Empty{
-				"test-1": sets.Empty{},
-				"test-2": sets.Empty{},
+				"test-1": {},
+				"test-2": {},
 			},
 			pathPrefix: "/",
 			msg:        "duplicated paths",
@@ -1384,7 +1384,7 @@ func TestValidateVirtualServerRouteSubroutesFails(t *testing.T) {
 				},
 			},
 			upstreamNames: map[string]sets.Empty{
-				"test-1": sets.Empty{},
+				"test-1": {},
 			},
 			pathPrefix: "/abc",
 			msg:        "invalid prefix",
